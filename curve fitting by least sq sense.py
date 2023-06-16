@@ -4,7 +4,7 @@ import math
 
 a = [float(x) for x in input().split()]
 b = [float(x) for x in input().split()]
-c = int(input("enter the choice: "))
+c = int(input("Choose the Equation \n 1. y = ax+b \n 2. y = ax^2+bx+c 3. y = ax^b\n enter the choice: "))
 
 sumx = sum(a)
 sumy = sum(b)
@@ -55,17 +55,11 @@ elif c==2:
     solequ(sumsqx,sumx,len(a),sumy,sumcubex,sumsqx,sumx,sumxy,sumquadx,sumcubex,sumsqx,sumsqxy)
 elif c==3:
     logx = [math.log(i) for i in a]
-    print(logx)
     sumX = sum(logx)
-    print(sumX)
     logy = [math.log(i) for i in b]
-    print(logy)
     sumY = sum(logy)
-    print(sumY)
     sumsqX = sum(list(map(mul,logx,logx)))
-    print(sumsqX)
     sumXY = sum(list(map(mul,logx,logy)))
-    print(sumXY)
     sol = soleq(sumX,len(a),sumY,sumsqX,sumX,sumXY)
     print(f"the equation is : \n y = {math.exp(sol[0])} x^{sol[1]}")
     
