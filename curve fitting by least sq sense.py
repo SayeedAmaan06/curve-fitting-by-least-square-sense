@@ -10,8 +10,6 @@ c = int(input("Choose the Equation \n 1. y = ax+b \n 2. y = ax^2+bx+c \n 3. y = 
 sumx = sum(a)
 sumy = sum(b)
 
-#function to find solution for equation with 2 variables
-
 if c==1:
     #squaring elements in list a and adding them
     sumsqx= sum(a**2)
@@ -19,7 +17,7 @@ if c==1:
     #multiplying elements of list a with list b and adding them
     sumxy = sum(a*b)
 
-    #using the function to get the desired solution
+    #finding solution for equations with 2 variables
     eqcoeff = np.array([[sumx,len(a)],[sumsqx,sumx]])
     eqcon = np.array([sumy,sumxy])
     sol = np.linalg.solve(eqcoeff,eqcon)
@@ -59,7 +57,7 @@ elif c==3:
     #multiplying elements of list logX with list logY and adding them
     sumXY = sum(logx*logy)
 
-    #using the funciton to get the desired solution
+    #finding solution for equations with 2 variables
     eqcoeff = np.array([[sumX,len(a)],[sumsqX,sumX]])
     eqcon = np.array([sumY,sumXY])
     sol = np.linalg.solve(eqcoeff,eqcon)
