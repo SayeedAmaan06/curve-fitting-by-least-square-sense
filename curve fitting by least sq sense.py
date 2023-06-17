@@ -1,4 +1,3 @@
-from sympy import symbols, Eq, solve
 import numpy as np
 
 #input of lists(values) a and b 
@@ -12,21 +11,6 @@ sumx = sum(a)
 sumy = sum(b)
 
 #function to find solution for equation with 2 variables
-def soleq(a1,b1,c1,a2,b2,c2):
-        x, y = symbols('x,y')
-        #defining the equations
-        eq1 = Eq(((a1*x)+(b1*y)), c1)
-        print("Equation 1:")
-        print(eq1)
-        eq2 = Eq(((a2*x)+(b2*y)), c2)
-        print("Equation 2")
-        print(eq2)
-        print("Values of 2 unknown variable are as follows:")
-        sol = solve((eq1, eq2), (x, y))
-        #printing the values in the form of y=mx+c
-        print(f"y = {sol[x]} x + {sol[y]}")
-        s = [float(sol[x]),sol[y]]
-        return s
 
 if c==1:
     #squaring elements in list a and adding them
@@ -36,7 +20,10 @@ if c==1:
     sumxy = sum(a*b)
 
     #using the function to get the desired solution
-    soleq(sumx,len(a),sumy,sumsqx,sumx,sumxy)
+    eqcoeff = np.array([[sumx,len(a)],[sumsqx,sumx]])
+    eqcon = np.array([sumy,sumxy])
+    sol = np.linalg.solve(eqcoeff,eqcon)
+    print(f"y = {sol[0]} x + {sol[1]}")
 
 elif c==2:
     #squaring elements in list a and adding them
@@ -52,28 +39,12 @@ elif c==2:
     #multiplying elements of list sqa with list b and adding them
     sumsqxy = sum((a**2)*b)
 
-    #function to find solution for equation with 3 variables
-    def solequ(a1,b1,c1,d1,a2,b2,c2,d2,a3,b3,c3,d3):
-        x, y, z = symbols('x,y,z')
-  
-        # defining equations
-        eq1 = Eq(((a1*x)+(b1*y)+(c1*z)), d1)
-        print("Equation 1:")
-        print(eq1)
+    #finding solution for equations with 3 variables
+    eqcoeff = np.array([[sumsqx,sumx,len(a)],[sumcubex,sumsqx,sumx],[sumquadx,sumcubex,sumsqx]])
+    eqcon = np.array([sumy,sumxy,sumsqxy])
+    sol = np.linalg.solve(eqcoeff,eqcon)
+    print(f"y = {sol[0]} x^2 + {sol[1]} x + {sol[2]}")
     
-        eq2 =Eq(((a2*x)+(b2*y)+(c2*z)), d2)
-        print("Equation 2")
-        print(eq2)
-  
-        eq3 = Eq(((a3*x)+(b3*y)+(c3*z)), d3)
-        print("Equation 3")
-        print(eq3)
-
-        print("Values of 3 unknown variable are as follows:")
-        sol = solve((eq1, eq2, eq3), (x, y, z))
-        #printing the values in the form of y=ax^2+bx+c
-        print(f"y = {sol[x]} x^2 + {sol[y]} x + {sol[z]}")
-    solequ(sumsqx,sumx,len(a),sumy,sumcubex,sumsqx,sumx,sumxy,sumquadx,sumcubex,sumsqx,sumsqxy)
 
 elif c==3:
     #finding the logarithmic values of elements in list a and b
@@ -89,8 +60,9 @@ elif c==3:
     sumXY = sum(logx*logy)
 
     #using the funciton to get the desired solution
-    sol = soleq(sumX,len(a),sumY,sumsqX,sumX,sumXY)
-
+    eqcoeff = np.array([[sumX,len(a)],[sumsqX,sumX]])
+    eqcon = np.array([sumY,sumXY])
+    sol = np.linalg.solve(eqcoeff,eqcon)
     #printing the values in the form of y=ax^b
     print(f"The Equation is : \n y = {np.exp(sol[0])} x^{sol[1]}")
     
