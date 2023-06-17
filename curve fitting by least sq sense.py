@@ -1,12 +1,11 @@
 from sympy import symbols, Eq, solve
-from operator import mul
-import math
+import numpy as np
 
 #input of lists(values) a and b 
-a = [float(x) for x in input().split()]
-b = [float(x) for x in input().split()]
+a = np.array([float(x) for x in input().split()])
+b = np.array([float(x) for x in input().split()])
 #input from user to choose the curve fitting equation
-c = int(input("Choose the Equation \n 1. y = ax+b \n 2. y = ax^2+bx+c 3. y = ax^b\n enter the choice: "))
+c = int(input("Choose the Equation \n 1. y = ax+b \n 2. y = ax^2+bx+c \n 3. y = ax^b \n enter the choice: "))
 
 #adding the elements of lists a and b
 sumx = sum(a)
@@ -26,33 +25,32 @@ def soleq(a1,b1,c1,a2,b2,c2):
         sol = solve((eq1, eq2), (x, y))
         #printing the values in the form of y=mx+c
         print(f"y = {sol[x]} x + {sol[y]}")
-        s = [sol[x],sol[y]]
+        s = [float(sol[x]),sol[y]]
         return s
 
 if c==1:
     #squaring elements in list a and adding them
-    sumsqx= sum(list(map(mul,a,a)))
+    sumsqx= sum(a**2)
 
     #multiplying elements of list a with list b and adding them
-    sumxy = sum(list(map(mul, a,b)))
+    sumxy = sum(a*b)
 
     #using the function to get the desired solution
     soleq(sumx,len(a),sumy,sumsqx,sumx,sumxy)
 
 elif c==2:
     #squaring elements in list a and adding them
-    sqa = list(map(mul,a,a))
-    sumsqx= sum(sqa)
+    sumsqx= sum(a**2)
 
     #finding the sumation a^3 and a^4 
-    sumcubex= sum(list(map(mul,sqa,a)))
-    sumquadx= sum(list(map(mul,sqa,sqa)))
+    sumcubex= sum(a**3)
+    sumquadx= sum(a**4)
 
     #multiplying elements of list a with list b and adding them
-    sumxy = sum(list(map(mul, a,b)))
+    sumxy = sum(a*b)
 
     #multiplying elements of list sqa with list b and adding them
-    sumsqxy = sum(list(map(mul,sqa,b)))
+    sumsqxy = sum((a**2)*b)
 
     #function to find solution for equation with 3 variables
     def solequ(a1,b1,c1,d1,a2,b2,c2,d2,a3,b3,c3,d3):
@@ -79,20 +77,20 @@ elif c==2:
 
 elif c==3:
     #finding the logarithmic values of elements in list a and b
-    logx = [math.log(i) for i in a]
+    logx = np.log(a)
     sumX = sum(logx)
-    logy = [math.log(i) for i in b]
+    logy = np.log(b)
     sumY = sum(logy)
 
     #squaring elements in list logX and adding them
-    sumsqX = sum(list(map(mul,logx,logx)))
+    sumsqX = sum(logx**2)
 
     #multiplying elements of list logX with list logY and adding them
-    sumXY = sum(list(map(mul,logx,logy)))
+    sumXY = sum(logx*logy)
 
     #using the funciton to get the desired solution
     sol = soleq(sumX,len(a),sumY,sumsqX,sumX,sumXY)
 
     #printing the values in the form of y=ax^b
-    print(f"the equation is : \n y = {math.exp(sol[0])} x^{sol[1]}")
+    print(f"The Equation is : \n y = {np.exp(sol[0])} x^{sol[1]}")
     
